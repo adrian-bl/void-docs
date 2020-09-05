@@ -85,3 +85,9 @@ configuration. It should show:
 $ i2cdetect -l
 i2c-1i2c          bcm2835 I2C adapter                 I2C adapter
 ```
+
+### Containers and memory cgroup
+
+Raspberry Pi kernels [disable the memory cgroup by default](https://github.com/raspberrypi/linux/commit/9b0efcc1ec497b2985c6aaa60cd97f0d2d96d203#diff-f1d702fa7c504a2b38b30ce6bb098744).
+
+This breaks any workload which uses containers, such as Nomad, Kubernetes and Docker: If you plan to use containers on your Raspberry Pi, you must manually enable memory cgroups by adding `cgroup_enable=memory` to `/boot/cmdline.txt`.
